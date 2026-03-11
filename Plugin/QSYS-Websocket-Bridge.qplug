@@ -614,7 +614,7 @@ if Controls then
     
     ws = WebSocket.New()
     
-    ws.Connected = function()
+    ws.Connected = function(ws)
       SetStatus(0, "Connected")
       pingTimer:Start(pingInterval)
       reconnectTimer:Stop()
@@ -636,7 +636,7 @@ if Controls then
       reconnectTimer:Start(reconnectDelay)
     end
     
-    ws.Closed = function()
+    ws.Closed = function(ws)
       SetStatus(5, "Disconnected")
       pingTimer:Stop()
       dprint("Info", "WebSocket closed")
@@ -645,7 +645,7 @@ if Controls then
       reconnectTimer:Start(reconnectDelay)
     end
     
-    ws.Pong = function()
+    ws.Pong = function(ws)
       dprint("All", "Pong received")
     end
     
