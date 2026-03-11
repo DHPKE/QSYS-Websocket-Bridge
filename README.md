@@ -23,22 +23,43 @@ Provide a flexible, production-ready WebSocket client for Q-SYS that can:
 
 ## Project Status
 
-🚧 **In Development** - Initial structure being created
+✅ **Phase 2 Complete** - REST API + Authentication  
+✅ **Phase 3 Complete** - Vue 3 WebUI  
+🚧 **Phase 4 In Progress** - Mobile apps + advanced features
 
 ## Repository Structure
 
 ```
 QSYS-Websocket-Bridge/
 ├── Plugin/              # Q-SYS plugin (.qplug file)
-├── Server/              # Example server implementations
-│   ├── node/           # Node.js example server
+├── Server/              # Server implementations
+│   ├── node/           # Node.js server (Phase 2 + 3)
+│   │   ├── index-v2.js # REST API + WebSocket server
+│   │   ├── client/     # Vue 3 WebUI (Phase 3)
+│   │   └── src/        # Backend modules
+│   ├── node-red/       # Node-RED flows
 │   └── python/         # Python example server
 ├── Docs/               # Documentation
 ├── Examples/           # Usage examples and templates
 └── Tests/              # Test scripts
 ```
 
-## Features (Planned)
+## Features
+
+### ✅ Completed (Phase 2 + 3)
+
+- [x] REST API server (Express)
+- [x] JWT authentication
+- [x] User management (SQLite)
+- [x] Role-based access control
+- [x] Component state caching
+- [x] Value history tracking
+- [x] **Vue 3 WebUI** with Vueform
+- [x] Real-time WebSocket dashboard
+- [x] Component control interface
+- [x] Responsive dark theme
+
+### 🚧 Planned (Phase 4+)
 
 - [ ] Core WebSocket client plugin
 - [ ] Secure (wss://) and insecure (ws://) support
@@ -49,13 +70,41 @@ QSYS-Websocket-Bridge/
 - [ ] Ping/pong keep-alive
 - [ ] Status indicators (connected, error, data rate)
 - [ ] Debug levels (None, Errors, All)
-- [ ] Example Node.js server
-- [ ] Example Python server
-- [ ] Documentation and tutorials
+- [ ] Mobile apps (iOS/Android)
+- [ ] Advanced control types (sliders, charts)
 
 ## Quick Start
 
-_(Coming soon)_
+### Backend (Phase 2)
+
+```bash
+cd Server/node
+npm install
+cp .env.example .env
+# Edit .env and set JWT_SECRET
+node index-v2.js
+```
+
+Server runs on: **http://localhost:3000**
+
+### WebUI (Phase 3)
+
+```bash
+cd Server/node/client
+npm install
+npm run dev
+```
+
+WebUI runs on: **http://localhost:5173**
+
+**Default credentials:**
+- Username: `admin`
+- Password: `admin`
+
+### Full Documentation
+
+- [Phase 2: REST API + Auth](Server/node/PHASE2_README.md)
+- [Phase 3: Vue 3 WebUI](Server/node/PHASE3_README.md)
 
 ## Requirements
 
