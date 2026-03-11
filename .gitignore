@@ -1,0 +1,6 @@
+# Q-SYS WebSocket Bridge
+
+node_modules/
+*.log
+.DS_Store
+.env

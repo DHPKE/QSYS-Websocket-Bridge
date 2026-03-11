@@ -1,0 +1,26 @@
+{
+  "name": "qsys-websocket-bridge",
+  "version": "1.0.0",
+  "description": "WebSocket bridge server for Q-SYS control",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "qsys",
+    "websocket",
+    "bridge",
+    "automation",
+    "control"
+  ],
+  "author": "DHPKE",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.16.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
+  }
+}
