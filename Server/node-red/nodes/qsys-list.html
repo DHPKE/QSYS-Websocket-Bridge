@@ -1,0 +1,63 @@
+<script type="text/javascript">
+  RED.nodes.registerType('qsys-list', {
+    category: 'Q-SYS',
+    color: '#4287f5',
+    defaults: {
+      name: { value: '' },
+      bridge: { value: '', type: 'qsys-config', required: true }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'list.png',
+    label: function() {
+      return this.name || 'List Components';
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="qsys-list">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="List Components">
+  </div>
+  <div class="form-row">
+    <label for="node-input-bridge"><i class="fa fa-plug"></i> Bridge</label>
+    <input type="text" id="node-input-bridge">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="qsys-list">
+  <p>List all Q-SYS components that have been accessed.</p>
+  
+  <h3>Inputs</h3>
+  <p>Trigger with any message to request component list.</p>
+  
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>msg.payload <span class="property-type">array</span></dt>
+    <dd>Array of component objects with name and type</dd>
+    <dt>msg.qsys <span class="property-type">object</span></dt>
+    <dd>Full Q-SYS response</dd>
+  </dl>
+  
+  <h3>Details</h3>
+  <p>Returns a list of all Q-SYS components that have been cached by the plugin.
+  Note that components are only cached after they are first accessed.</p>
+  
+  <h3>Example Output</h3>
+  <pre>
+msg.payload = [
+  { "name": "Gain 1" },
+  { "name": "Mixer 1" },
+  { "name": "Meter 1" }
+]
+  </pre>
+  
+  <h3>Example Flow</h3>
+  <pre>
+[inject] → [qsys-list] → [debug]
+  </pre>
+</script>

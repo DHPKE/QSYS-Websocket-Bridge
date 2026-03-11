@@ -1,0 +1,50 @@
+<script type="text/javascript">
+  RED.nodes.registerType('qsys-config', {
+    category: 'config',
+    defaults: {
+      name: { value: '' },
+      host: { value: 'localhost', required: true },
+      port: { value: 3000, required: true, validate: RED.validators.number() },
+      path: { value: '/client', required: true }
+    },
+    label: function() {
+      return this.name || `Q-SYS Bridge (${this.host}:${this.port})`;
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="qsys-config">
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-config-input-name" placeholder="Q-SYS Bridge">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-host"><i class="fa fa-server"></i> Host</label>
+    <input type="text" id="node-config-input-host" placeholder="localhost">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-port"><i class="fa fa-plug"></i> Port</label>
+    <input type="number" id="node-config-input-port" placeholder="3000">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-path"><i class="fa fa-link"></i> Path</label>
+    <input type="text" id="node-config-input-path" placeholder="/client">
+  </div>
+</script>
+
+<script type="text/html" data-help-name="qsys-config">
+  <p>Configuration node for Q-SYS WebSocket Bridge connection.</p>
+  <h3>Properties</h3>
+  <dl class="message-properties">
+    <dt>Host <span class="property-type">string</span></dt>
+    <dd>WebSocket bridge server hostname or IP address</dd>
+    <dt>Port <span class="property-type">number</span></dt>
+    <dd>WebSocket bridge server port (default: 3000)</dd>
+    <dt>Path <span class="property-type">string</span></dt>
+    <dd>WebSocket endpoint path (default: /client)</dd>
+  </dl>
+  <h3>Details</h3>
+  <p>This configuration node manages the WebSocket connection to the Q-SYS Bridge server.
+  The bridge server must be running and the Q-SYS plugin must be connected.</p>
+  <p>Multiple Q-SYS nodes can share the same configuration.</p>
+</script>

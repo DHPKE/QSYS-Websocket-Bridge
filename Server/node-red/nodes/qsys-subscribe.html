@@ -1,0 +1,90 @@
+<script type="text/javascript">
+  RED.nodes.registerType('qsys-subscribe', {
+    category: 'Q-SYS',
+    color: '#4287f5',
+    defaults: {
+      name: { value: '' },
+      bridge: { value: '', type: 'qsys-config', required: true },
+      component: { value: '' },
+      control: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'feed.png',
+    label: function() {
+      return this.name || `Subscribe ${this.component || 'component'}.${this.control || 'control'}`;
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="qsys-subscribe">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Subscribe Gain">
+  </div>
+  <div class="form-row">
+    <label for="node-input-bridge"><i class="fa fa-plug"></i> Bridge</label>
+    <input type="text" id="node-input-bridge">
+  </div>
+  <div class="form-row">
+    <label for="node-input-component"><i class="fa fa-cube"></i> Component</label>
+    <input type="text" id="node-input-component" placeholder="Gain 1">
+  </div>
+  <div class="form-row">
+    <label for="node-input-control"><i class="fa fa-sliders"></i> Control</label>
+    <input type="text" id="node-input-control" placeholder="gain">
+  </div>
+  <div class="form-tips">
+    <strong>Tip:</strong> Automatically subscribes on deploy. Outputs message whenever value changes in Q-SYS.
+  </div>
+</script>
+
+<script type="text/html" data-help-name="qsys-subscribe">
+  <p>Subscribe to real-time control value changes from Q-SYS.</p>
+  
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt class="optional">msg.component <span class="property-type">string</span></dt>
+    <dd>Component name (changes subscription)</dd>
+    <dt class="optional">msg.control <span class="property-type">string</span></dt>
+    <dd>Control name (changes subscription)</dd>
+  </dl>
+  
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>msg.payload <span class="property-type">number | string | boolean</span></dt>
+    <dd>The new control value</dd>
+    <dt>msg.component <span class="property-type">string</span></dt>
+    <dd>Component name</dd>
+    <dt>msg.control <span class="property-type">string</span></dt>
+    <dd>Control name</dd>
+    <dt>msg.timestamp <span class="property-type">number</span></dt>
+    <dd>Unix timestamp of the change</dd>
+    <dt>msg.qsys <span class="property-type">object</span></dt>
+    <dd>Full Q-SYS update message</dd>
+  </dl>
+  
+  <h3>Details</h3>
+  <p>Subscribes to a Q-SYS control and outputs a message whenever the value changes.
+  The subscription is established automatically on deploy and maintained even after
+  reconnection.</p>
+  
+  <p>Perfect for real-time monitoring and automation triggers.</p>
+  
+  <h3>Example Flow</h3>
+  <pre>
+[qsys-subscribe: Gain 1.gain] → [function: threshold check] → [qsys-set: Mute]
+  </pre>
+  
+  <h3>Dynamic Subscription</h3>
+  <p>Send a message with <code>msg.component</code> and <code>msg.control</code> to change
+  what you're subscribed to:</p>
+  <pre>
+msg.component = "Gain 2";
+msg.control = "gain";
+return msg;
+  </pre>
+</script>

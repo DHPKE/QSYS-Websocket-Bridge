@@ -1,0 +1,87 @@
+<script type="text/javascript">
+  RED.nodes.registerType('qsys-set', {
+    category: 'Q-SYS',
+    color: '#4287f5',
+    defaults: {
+      name: { value: '' },
+      bridge: { value: '', type: 'qsys-config', required: true },
+      component: { value: '' },
+      control: { value: '' },
+      value: { value: '' }
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: 'arrow-out.png',
+    label: function() {
+      return this.name || `Set ${this.component || 'component'}.${this.control || 'control'}`;
+    },
+    labelStyle: function() {
+      return this.name ? 'node_label_italic' : '';
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="qsys-set">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+    <input type="text" id="node-input-name" placeholder="Set Gain">
+  </div>
+  <div class="form-row">
+    <label for="node-input-bridge"><i class="fa fa-plug"></i> Bridge</label>
+    <input type="text" id="node-input-bridge">
+  </div>
+  <div class="form-row">
+    <label for="node-input-component"><i class="fa fa-cube"></i> Component</label>
+    <input type="text" id="node-input-component" placeholder="Gain 1">
+  </div>
+  <div class="form-row">
+    <label for="node-input-control"><i class="fa fa-sliders"></i> Control</label>
+    <input type="text" id="node-input-control" placeholder="gain">
+  </div>
+  <div class="form-row">
+    <label for="node-input-value"><i class="fa fa-pencil"></i> Value</label>
+    <input type="text" id="node-input-value" placeholder="-10">
+  </div>
+  <div class="form-tips">
+    <strong>Tip:</strong> Leave value empty to use <code>msg.payload</code>
+  </div>
+</script>
+
+<script type="text/html" data-help-name="qsys-set">
+  <p>Set a control value on Q-SYS component.</p>
+  
+  <h3>Inputs</h3>
+  <dl class="message-properties">
+    <dt class="optional">msg.payload <span class="property-type">number | string | boolean</span></dt>
+    <dd>The value to set (overrides config value)</dd>
+    <dt class="optional">msg.component <span class="property-type">string</span></dt>
+    <dd>Component name (overrides config)</dd>
+    <dt class="optional">msg.control <span class="property-type">string</span></dt>
+    <dd>Control name (overrides config)</dd>
+  </dl>
+  
+  <h3>Outputs</h3>
+  <dl class="message-properties">
+    <dt>msg.component <span class="property-type">string</span></dt>
+    <dd>Component name</dd>
+    <dt>msg.control <span class="property-type">string</span></dt>
+    <dd>Control name</dd>
+    <dt>msg.value <span class="property-type">number | string | boolean</span></dt>
+    <dd>Value that was set</dd>
+    <dt>msg.qsys <span class="property-type">object</span></dt>
+    <dd>Full Q-SYS response</dd>
+  </dl>
+  
+  <h3>Details</h3>
+  <p>Sets a control value on a Q-SYS component. The value can be configured in the node,
+  or passed via <code>msg.payload</code>.</p>
+  
+  <h3>Example</h3>
+  <pre>
+// Set gain to -10dB
+msg.component = "Gain 1";
+msg.control = "gain";
+msg.payload = -10;
+return msg;
+  </pre>
+</script>
